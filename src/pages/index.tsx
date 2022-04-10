@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { format, isSameMonth } from 'date-fns';
+import { format, isSameDay, isSameMonth } from 'date-fns';
 import Head from 'next/head';
 import { generateMonth } from '@/utils/calendar-gen';
 
@@ -26,9 +26,12 @@ export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const calData: Array<Array<Date>> = generateMonth(selectedDate)();
 
-  function dayStyles(day: Date) {
+  function dayColor(day: Date) {
     if (!isSameMonth(day, selectedDate)) {
       return 'text-gray-400';
+    }
+    if (isSameDay(day, selectedDate)) {
+      return 'bg-blue-100'
     }
   }
   return (
@@ -58,7 +61,7 @@ export default function Calendar() {
                     week.map((day, j) => (
                       <div
                         key={j}
-                        className={`flex justify-center items-center w-16 h-16 border border-blue-300 ${dayStyles(day)}`}
+                        className={`flex justify-center items-center w-16 h-16 border border-blue-300 hover:bg-sky-100 ${dayColor(day)}`}
                         onClick={() => setSelectedDate(day)}
                       >
                         {format(day, 'dd')}
