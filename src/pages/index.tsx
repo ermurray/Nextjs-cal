@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { format, isSameMonth } from 'date-fns';
 import Head from 'next/head';
 import { generateMonth } from '@/utils/calendar-gen';
 
@@ -18,8 +20,17 @@ function DayNames() {
   );
 }
 
+
+
 export default function Calendar() {
-  const data = generateMonth();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const calData: Array<Array<Date>> = generateMonth(selectedDate)();
+
+  function dayStyles(day: Date) {
+    if (!isSameMonth(day, selectedDate)) {
+      return 'text-gray-400';
+    }
+  }
   return (
     <div >
       <Head>
@@ -29,15 +40,34 @@ export default function Calendar() {
       </Head>
 
       <main >
-        <h1 className={'test'} >
-          Hello world!
-        </h1>
+        
         <div className={'box-border flex m-8 bg-white'}>
+      
           <div className={'rounded-md border'}>
+            <h1 className={'flex w-full'}>
+              {format(selectedDate, 'MMMM')}
+            </h1>
             <DayNames/>
-            <pre>
-              {JSON.stringify(data(), null, 2)}
-            </pre>
+            <ul>
+              {calData.map((week, i) => (
+                <div
+                  key={i}
+                  className={'grid grid-cols-7'}
+                >
+                  {
+                    week.map((day, j) => (
+                      <div
+                        key={j}
+                        className={`flex justify-center items-center w-16 h-16 border border-blue-300 ${dayStyles(day)}`}
+                        onClick={() => setSelectedDate(day)}
+                      >
+                        {format(day, 'dd')}
+                      </div>
+                    ))
+                  }
+                </div>
+              ))}
+            </ul>
           </div>
         </div>
       </main>
