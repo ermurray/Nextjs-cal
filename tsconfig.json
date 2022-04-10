@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/pages/*": ["pages/*"],
+      "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
+      "@/api/*": ["api/*"]
     },
-    "target": "es2020",
+    "target": "esnext",
     "lib": [
+      "es6",
+      "es7",
       "dom",
       "dom.iterable",
       "esnext"
@@ -22,6 +25,7 @@
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -29,6 +33,7 @@
     "jsx": "preserve"
   },
   "include": [
+    "src",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"

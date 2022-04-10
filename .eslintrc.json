@@ -9,6 +9,10 @@
   ],
   "plugins": [
     "tailwindcss"
-  ] 
+  ],
+  "rules": {
+    "import/extensions": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  }
 
 }
