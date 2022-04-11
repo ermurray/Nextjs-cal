@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { format, isSameDay, isSameMonth } from 'date-fns';
+import { format, isSameDay, isSameMonth, addMonths } from 'date-fns';
 import Head from 'next/head';
 import { generateMonth } from '@/utils/calendar-gen';
 
@@ -34,6 +34,15 @@ export default function Calendar() {
       return 'bg-blue-100'
     }
   }
+
+  function nextMonth(){
+    setSelectedDate(addMonths(selectedDate, 1))
+  }
+
+  function prevMonth(){
+    setSelectedDate(addMonths(selectedDate, -1))
+  }
+
   return (
     <div >
       <Head>
@@ -47,9 +56,23 @@ export default function Calendar() {
         <div className={'box-border flex m-8 bg-white'}>
       
           <div className={'rounded-md border'}>
-            <h1 className={'flex w-full'}>
-              {format(selectedDate, 'MMMM')}
-            </h1>
+            <div className={'flex flex-row justify-center space-x-7'}>
+              <button
+                className={'hover:text-sky-700 '}
+                onClick={prevMonth}
+              >
+                {'<<'}
+              </button>
+              <h1 className={'flex'}>
+                {format(selectedDate, 'MMMM')}
+              </h1>
+              <button
+                className={'hover:text-sky-700'}
+                onClick={nextMonth}
+              >
+              {'>>'}
+              </button>
+            </div>
             <DayNames/>
             <ul>
               {calData.map((week, i) => (
