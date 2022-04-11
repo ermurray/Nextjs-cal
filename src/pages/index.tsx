@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { format, isSameDay, isSameMonth, addMonths } from 'date-fns';
+import { format, isSameDay, isSameMonth, addMonths, isToday } from 'date-fns';
 import Head from 'next/head';
 import { generateMonth } from '@/utils/calendar-gen';
 
@@ -87,7 +87,7 @@ export default function Calendar() {
                         className={`flex justify-center items-center w-16 h-16 border border-blue-300 hover:bg-sky-100 ${dayColor(day)}`}
                         onClick={() => setSelectedDate(day)}
                       >
-                        {format(day, 'dd')}
+                       <div className={`flex w-8 h-8 items-center justify-center ${isToday(day) && 'border w-8 h-8 border-purple-200 rounded-full bg-purple-200'}`}> {format(day, 'dd')}</div>
                       </div>
                     ))
                   }
