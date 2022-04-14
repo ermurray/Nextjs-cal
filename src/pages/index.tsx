@@ -25,7 +25,7 @@ function DayNames() {
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const calData: Array<Array<Date>> = generateMonth(selectedDate)();
-
+  // testing day color
   function dayColor(day: Date) {
     if (!isSameMonth(day, selectedDate)) {
       return 'text-gray-400';
